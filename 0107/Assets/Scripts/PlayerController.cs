@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Range(0, 1)] static public int Maz_ID_Now = 1;//紀錄當前型態
+
     private Rigidbody2D rb;//宣告剛體rb
-    private Animator anim;//宣告動畫anim
+    private Animator[] anim = { null, null, };
     private float horizontalmove;//宣告一個float為horizontalmove
     private float facedirection;//宣告一個float為facedirection
 
@@ -17,7 +19,10 @@ public class PlayerController : MonoBehaviour
      void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
+        for (int x = 0; x < 2; x++)
+        {
+            anim[x] = this.transform.GetChild(x).GetComponent<Animator>();
+        }
     }
      void FixedUpdate()
     {
@@ -47,8 +52,8 @@ public class PlayerController : MonoBehaviour
         if (horizontalmove != 0)
         {
         rb.velocity =new Vector2(horizontalmove* speed * Time.deltaTime, rb.velocity.y);
-        //設置剛體速度(速度乘以一個時間參數)
-        anim.SetFloat("Running", Mathf.Abs(facedirection));
+            //設置剛體速度(速度乘以一個時間參數)
+        anim[Maz_ID_Now].SetFloat("Running", Mathf.Abs(facedirection));
         }
 
         if (facedirection != 0)
@@ -61,29 +66,29 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         rb.velocity = Vector2.up * jumpforce;
-        anim.SetBool("Jumping", true);//設置動畫jumping的bool值為true
+        anim[Maz_ID_Now].SetBool("Jumping", true);//設置動畫jumping的bool值為true
     }
 
     void Attack()
     {
-        anim.SetTrigger("Attack");
+        anim[Maz_ID_Now].SetTrigger("Attack");
     }
     void SwitchAnim() 
     {
-        anim.SetBool("Idle", false);//設置動畫idle的bool值為flase
+        anim[Maz_ID_Now].SetBool("Idle", false);//設置動畫idle的bool值為flase
 
-        if (anim.GetBool("Jumping"))//如果得到動畫的bool值為jumping
+        if (anim[Maz_ID_Now].GetBool("Jumping"))//如果得到動畫的bool值為jumping
         {
             if (rb.velocity.y < 0)//如果rb的y軸速度<0
             {
-                anim.SetBool("Jumping", false);
-                anim.SetBool("Falling", true);
+                anim[Maz_ID_Now].SetBool("Jumping", false);
+                anim[Maz_ID_Now].SetBool("Falling", true);
             }
         }
         else if (coll.IsTouchingLayers(Ground))//如果碰撞體在地面
         {
-            anim.SetBool("Falling", false);
-            anim.SetBool("Idle",true);
+            anim[Maz_ID_Now].SetBool("Falling", false);
+            anim[Maz_ID_Now].SetBool("Idle",true);
         }
       
     }
