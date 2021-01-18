@@ -9,8 +9,8 @@ public class PlayerChange : MonoBehaviour
     private int form_index;
     void Start()
     {
-        Maz_form[0] = this.transform.GetChild(0).gameObject;
-        Maz_form[1] = this.transform.GetChild(1).gameObject;
+        Maz_form[0] = gameObject.transform.GetChild(0).gameObject;
+        Maz_form[1] = gameObject.transform.GetChild(1).gameObject;
     }
 
     void Update()
@@ -18,7 +18,19 @@ public class PlayerChange : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             form_index = PlayerController.Maz_ID_Now;
-            
+            if (forkTrigger.getFork)
+            {
+                form_index = 1;
+            }
         }
+        ChangeFinish();
+    }
+
+    void ChangeFinish()//將原本型態子物件關閉後，開啟新型態的子物件，並更新現在型態的ID
+    {
+        Maz_form[PlayerController.Maz_ID_Now].SetActive(false);
+        Maz_form[form_index].SetActive(true);
+
+        PlayerController.Maz_ID_Now = form_index;
     }
 }
