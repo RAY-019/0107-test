@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [Range(0, 1)] static public int Maz_ID_Now = 1;//紀錄當前型態
 
     private Rigidbody2D rb;//宣告剛體rb
-    private Animator[] anim = { null, null, };
+    private Animator[] anim = { null, null };
     private float horizontalmove;//宣告一個float為horizontalmove
     private float facedirection;//宣告一個float為facedirection
 
@@ -19,9 +19,10 @@ public class PlayerController : MonoBehaviour
      void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
         for (int x = 0; x < 2; x++)
         {
-            anim[x] = this.transform.GetChild(x).GetComponent<Animator>();
+            anim[x] =this.transform.GetChild(x).GetComponent<Animator>();
         }
     }
      void FixedUpdate()
