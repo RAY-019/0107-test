@@ -41,9 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Around
+    uniqueID: 1445265877
+    locked: 0
+  - name: BackGround
+    uniqueID: 3307531297
+    locked: 0
   - name: Ground
     uniqueID: 4261434989
     locked: 0
+  - name: Event
+    uniqueID: 3053536535
+    locked: 0
   - name: Player
     uniqueID: 3851934037
+    locked: 0
+  - name: FountGround
+    uniqueID: 2913518473
     locked: 0
