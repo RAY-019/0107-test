@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class EnterKey : MonoBehaviour
 {
+    [Header("密碼格數據")]
     public GameObject[] slot;//密码格子数组
     string password;//正确密码
     public string inputPassword;//输入密码
-    // Start is called before the first frame update
+
     void Start()
     {
-        password = "26";
+        password = "1234";
     }
     /// <summary>
     /// 检查密码方法
