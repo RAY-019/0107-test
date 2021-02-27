@@ -58,7 +58,6 @@ public class PlayControl : MonoBehaviour
         {
             transform.localScale = new Vector3(facedirection, 1, 1);//設置面向的方向
         }
-
     }
 
     void Jump()
@@ -91,4 +90,5 @@ public class PlayControl : MonoBehaviour
         }
 
     }
+
 }

@@ -31,21 +31,13 @@ public class DialogueSystem : MonoBehaviour
     }
 
     private void OnEnable()
-    {
-        //TextLabel.text = textList[index];
-        //index++;
+    { 
         StartCoroutine(SetTextUI());
-        textFinished = true;
     }
 
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Q) && textFinished)
-        {
-            //TextLabel.text = textList[index];
-            //index++;
-            StartCoroutine(SetTextUI());
-        }*/
+      
         if (Input.GetKeyDown(KeyCode.Q) && index == textList.Count)
         {
             gameObject.SetActive(false);
@@ -94,14 +86,9 @@ public class DialogueSystem : MonoBehaviour
                 index++;
                 break;
         }
-        /*for(int i = 0; i < textList[index].Length; i++)
-        {
-            TextLabel.text += textList[index][i];
-
-            yield return new WaitForSeconds(textSpeed);
-        }*/
+       
         int letter = 0;
-        while (!cancelTyping && letter < textList[index].Length - 1)
+        while (letter < textList[index].Length - 1 && !cancelTyping)
         {
             TextLabel.text += textList[index][letter];
             letter++;
