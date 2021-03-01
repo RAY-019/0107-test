@@ -4,20 +4,14 @@ using UnityEngine;
 
 public class boxTrigger : MonoBehaviour
 {
-    public GameObject BoxUI;
+   // public GameObject BoxUI;
 
     private void Update()
     {
-        //if ()
+        //if (DialogueTrigger.UIOpen)
         //{
-            //talkUI.SetActive(true);
+            //BoxUI.SetActive(true);
         //}
     }
-    private void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (coll.gameObject.tag == "Player")
-        {
-            
-        }
-    }
+
 }

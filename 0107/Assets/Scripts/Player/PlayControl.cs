@@ -14,12 +14,12 @@ public class PlayControl : MonoBehaviour
     public float jumpForce;//宣告一個float為jumpforce
     public LayerMask Ground;//宣告一個圖層變數Ground
 
-    public static bool isMove;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        DialogueSystem.isMove = true;
     }
     void FixedUpdate()
     {
@@ -38,7 +38,12 @@ public class PlayControl : MonoBehaviour
         {
             Attack();
         }
-        
+
+        if (DialogueSystem.isMove == false)
+        {
+            rb.velocity = new Vector2(0, 0);//速度設為0,使角色無法移動
+        }
+
     }
 
     void Movement()
@@ -47,14 +52,14 @@ public class PlayControl : MonoBehaviour
         facedirection = Input.GetAxisRaw("Horizontal");//直接獲取-1,0,1獲取整數
 
         //角色移動
-        if (horizontalmove != 0)
+        if (horizontalmove != 0 && DialogueSystem.isMove)
         {
             rb.velocity = new Vector2(horizontalmove * speed * Time.deltaTime, rb.velocity.y);
             //設置剛體速度(速度乘以一個時間參數)
             anim.SetFloat("Running", Mathf.Abs(facedirection));
         }
 
-        if (facedirection != 0)
+        if (facedirection != 0 && DialogueSystem.isMove)
         {
             transform.localScale = new Vector3(facedirection, 1, 1);//設置面向的方向
         }
@@ -62,8 +67,11 @@ public class PlayControl : MonoBehaviour
 
     void Jump()
     {
-        rb.velocity = Vector2.up * jumpForce;
-        anim.SetBool("Jumping", true);//設置動畫jumping的bool值為true
+        if (DialogueSystem.isMove)
+        {
+            rb.velocity = Vector2.up * jumpForce;
+            anim.SetBool("Jumping", true);//設置動畫jumping的bool值為true
+        }
     }
 
     void Attack()

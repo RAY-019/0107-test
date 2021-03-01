@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public GameObject Button, talkUI;
-    public static bool ImgOpen, UIOpen;
-
+    public GameObject Button, TalkUI;
+    public GameObject EventUI = null;
     private void Start()
     {
         Button.SetActive(false);
-        talkUI.SetActive(false);
+        TalkUI.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -19,15 +18,23 @@ public class DialogueTrigger : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         Button.SetActive(false);
+      
     }
 
     private void Update()
     {
         if(Button.activeSelf && Input.GetKeyDown(KeyCode.Q))
         {
-            talkUI.SetActive(true);
-            ImgOpen = true;
-            UIOpen = true;
+            TalkUI.SetActive(true);
         }
+        if(DialogueSystem.UIOpen)
+        {
+            EventUI.SetActive(true);
+        }
+        else
+        {
+            EventUI.SetActive(false);
+        }
+        
     }
 }
