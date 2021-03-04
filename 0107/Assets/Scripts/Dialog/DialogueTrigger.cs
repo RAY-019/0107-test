@@ -37,6 +37,11 @@ public class DialogueTrigger : MonoBehaviour
         {
             EventUI.SetActive(false);
         }
+        if (EnterKey.passwordCorrect)
+        {
+            EventUI.SetActive(false);
+            DialogueSystem.isMove = true;
+        }
         
     }
 }
