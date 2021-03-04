@@ -14,12 +14,14 @@ public class PlayControl : MonoBehaviour
     public float jumpForce;//宣告一個float為jumpforce
     public LayerMask Ground;//宣告一個圖層變數Ground
 
+    public GameObject TalkButton;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         DialogueSystem.isMove = true;
+        TalkButton.SetActive(false);
     }
     void FixedUpdate()
     {
@@ -42,6 +44,14 @@ public class PlayControl : MonoBehaviour
         if (DialogueSystem.isMove == false)
         {
             rb.velocity = new Vector2(0, 0);//速度設為0,使角色無法移動
+        }
+        if (DialogueTrigger.talkButton)
+        {
+            TalkButton.SetActive(true);
+        }
+        else
+        {
+            TalkButton.SetActive(false);
         }
 
     }

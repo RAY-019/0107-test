@@ -6,6 +6,7 @@ public class DialogueTrigger : MonoBehaviour
 {
     public GameObject Button, TalkUI;
     public GameObject EventUI = null;
+    public static bool talkButton;
     private void Start()
     {
         Button.SetActive(false);
@@ -13,17 +14,18 @@ public class DialogueTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Button.SetActive(true);
+        //Button.SetActive(true);
+        talkButton = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Button.SetActive(false);
-      
+        //Button.SetActive(false);
+        talkButton = false;
     }
 
     private void Update()
     {
-        if(Button.activeSelf && Input.GetKeyDown(KeyCode.Q))
+        if(talkButton && Input.GetKeyDown(KeyCode.Q))
         {
             TalkUI.SetActive(true);
         }
