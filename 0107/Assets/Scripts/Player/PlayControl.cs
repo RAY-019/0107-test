@@ -8,11 +8,15 @@ public class PlayControl : MonoBehaviour
     private Animator anim;//宣告動畫anim
     private float horizontalmove;//宣告一個float為horizontalmove
     private float facedirection;//宣告一個float為facedirection
+    private float vertical;
 
     public Collider2D coll;//宣告碰撞體coll
     public float speed;//宣告一個float為speed
     public float jumpForce;//宣告一個float為jumpforce
-    public LayerMask Ground;//宣告一個圖層變數Ground
+    public float restoretime;
+    //public LayerMask Ground;//宣告一個圖層變數Ground
+    private bool isGround;
+    private bool isOneWayPlatForm;
 
     public GameObject TalkButton;
 
@@ -31,7 +35,10 @@ public class PlayControl : MonoBehaviour
 
     void Update()
     {
-        if (coll.IsTouchingLayers(Ground) && Input.GetKeyDown(KeyCode.Space))
+        CheckGround();
+        OnWayPlatFormCheck();
+
+        if (isGround && Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
@@ -101,12 +108,39 @@ public class PlayControl : MonoBehaviour
                 anim.SetBool("Falling", true);
             }
         }
-        else if (coll.IsTouchingLayers(Ground))//如果碰撞體在地面
+        else if (isGround)//如果碰撞體在地面
         {
             anim.SetBool("Falling", false);
             anim.SetBool("Idle", true);
         }
 
     }
+    void CheckGround()//檢查是否在地面||平台上
+    {
+        isGround = coll.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
+                   coll.IsTouchingLayers(LayerMask.GetMask("PlatForm"));
+        isOneWayPlatForm = coll.IsTouchingLayers(LayerMask.GetMask("PlatForm"));
+    }
 
+    void OnWayPlatFormCheck()//檢查是否在平台上(為了讓玩家可以跳下平台)
+    {
+        vertical = Input.GetAxis("Vertical");
+        if (isGround && gameObject.layer != LayerMask.NameToLayer("Player"))
+        {
+            gameObject.layer = LayerMask.NameToLayer("Player");
+        }
+        if (isOneWayPlatForm && vertical < -0.1f)
+        {
+            gameObject.layer = LayerMask.NameToLayer("PlatForm");
+            Invoke("RestorePlayerLayer", restoretime);
+        }
+    }
+
+    void RestorePlayerLayer()
+    {
+        if(!isGround && gameObject.layer != LayerMask.NameToLayer("Player"))
+        {
+            gameObject.layer = LayerMask.NameToLayer("Player");
+        }
+    }
 }

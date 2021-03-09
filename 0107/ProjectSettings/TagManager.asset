@@ -17,7 +17,7 @@ TagManager:
   - Ground
   - Event
   - Player
-  - 
+  - PlatForm
   - 
   - 
   - 
@@ -50,6 +50,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 4261434989
+    locked: 0
+  - name: Object
+    uniqueID: 1792356913
     locked: 0
   - name: Event
     uniqueID: 3053536535
