@@ -52,7 +52,7 @@ public class PlayControl : MonoBehaviour
         {
             rb.velocity = new Vector2(0, 0);//速度設為0,使角色無法移動
         }
-        if (DialogueTrigger.talkButton)
+        if (DialogueTrigger.isTalkButton)
         {
             TalkButton.SetActive(true);
         }

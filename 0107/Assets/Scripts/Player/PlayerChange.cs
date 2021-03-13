@@ -19,7 +19,7 @@ public class PlayerChange : MonoBehaviour
 
     void PlayChange()
     {
-        if (EnterKey.passwordCorrect)
+        if (EnterKey.isPasswordCorrect)
         {
             //fork.SetActive(true);
             if (Input.GetKeyDown(KeyCode.Q) && forkTrigger.getFork)

@@ -4,44 +4,92 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public GameObject Button, TalkUI;
-    public GameObject EventUI = null;
-    public static bool talkButton;
+    public GameObject Button, EventUI, StartDialog, trueDialog, falseDialog;
+    public static bool isTalkButton;
+    public static bool isUIOpen;
+    public static bool isEvent;
+    public static bool isFinishEvent;
+    public bool isTrueFinishEvent;
+
     private void Start()
     {
+        isUIOpen = false;
         Button.SetActive(false);
-        TalkUI.SetActive(false);
+        EventUI.SetActive(false);
+        StartDialog.SetActive(false);
+        trueDialog.SetActive(false);
+        falseDialog.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Button.SetActive(true);
-        talkButton = true;
+        isTalkButton = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //Button.SetActive(false);
-        talkButton = false;
+        isTalkButton = false;
     }
 
-    private void Update()
+    void Update()
     {
-        if(talkButton && Input.GetKeyDown(KeyCode.Q))
+        StartDialogue();
+
+        if (EventUI.activeInHierarchy)
         {
-            TalkUI.SetActive(true);
-        }
-        if(DialogueSystem.UIOpen)
-        {
-            EventUI.SetActive(true);
+            isUIOpen = true;
         }
         else
         {
-            EventUI.SetActive(false);
+            isUIOpen = false;
         }
-        if (EnterKey.passwordCorrect)
+
+    }
+
+    void StartDialogue()
+    {
+        if (isTalkButton && !isUIOpen && !isEvent)
         {
-            EventUI.SetActive(false);
-            DialogueSystem.isMove = true;
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                StartDialog.SetActive(true);
+                EventUI.SetActive(true);
+            }
+            /*if (isTrueFinishEvent)
+            {
+                StartDialog.SetActive(false);
+                EventUI.SetActive(false);
+            }*/
         }
-        
+    }
+
+    public void CheckPassWord()
+    {
+        isEvent = true;
+        DialogueSystem.index = 0;
+        if (EnterKey.isPasswordCorrect && isUIOpen)
+        {
+            StartDialog.SetActive(false);
+            trueDialog.SetActive(true);
+            falseDialog.SetActive(false);
+            EventUI.SetActive(false);
+            isTrueFinishEvent = true;
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                isEvent = false;
+                isFinishEvent = false;
+            }
+        }
+        if (!EnterKey.isPasswordCorrect && isUIOpen)
+        {
+            StartDialog.SetActive(false);
+            trueDialog.SetActive(false);
+            falseDialog.SetActive(true);
+            EventUI.SetActive(false);
+            isFinishEvent = true;
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                isEvent = false;
+                isFinishEvent = false;
+            }
+        }
     }
 }

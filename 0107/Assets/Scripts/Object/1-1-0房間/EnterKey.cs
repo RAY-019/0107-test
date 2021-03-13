@@ -8,11 +8,15 @@ public class EnterKey : MonoBehaviour
     public GameObject[] slot;//密码格子数组
     string password;//正确密码
     public string inputPassword;//输入密码
-    public static bool passwordCorrect;
+    public static bool isPasswordCorrect;
+
     void Start()
     {
         password = "1000";
+        isPasswordCorrect = false;
+        DialogueTrigger.isUIOpen = true;
     }
+
     /// <summary>
     /// 检查密码方法
     /// </summary>
@@ -26,15 +30,18 @@ public class EnterKey : MonoBehaviour
         if (inputPassword == password)
         {
             print("解锁成功");
-            passwordCorrect = true;
+            isPasswordCorrect = true;
+            //DialogueTrigger.isUIOpen = false;
         }
         else
         {
             print("密码错误");
             inputPassword = null;
-            passwordCorrect = false;
-            DialogueSystem.isMove = false;
+            isPasswordCorrect = false;
+            //DialogueSystem.isMove = false;
+            //DialogueTrigger.isUIOpen = false;
         }
     }
+
 
 }

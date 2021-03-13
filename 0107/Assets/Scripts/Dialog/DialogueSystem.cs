@@ -9,10 +9,11 @@ public class DialogueSystem : MonoBehaviour
     [Header("UI組件")]
     public TMP_Text TextLabel;
     public Image FaceImage;
+    public GameObject EventUI;
 
     [Header("文本文件")]
     public TextAsset TextFile;
-    public int index;
+    static public int index;
     public float textSpeed;
 
     [Header("頭像")]
@@ -20,7 +21,7 @@ public class DialogueSystem : MonoBehaviour
 
     bool textFinished;//是否完成打字
     bool cancelTyping;//取消打字
-    public static bool UIOpen;//是否開啟事件UI
+    public static bool isEventUIOpen;//是否開啟事件UI
     public static bool isMove;//角色是否可以移動
 
     List<string> textList = new List<string>();
@@ -39,14 +40,13 @@ public class DialogueSystem : MonoBehaviour
 
     void Update()
     {
-        UIOpen = true;
         isMove = false;
         if (Input.GetKeyDown(KeyCode.Q) && index == textList.Count)
         {
             gameObject.SetActive(false);
-            UIOpen = false;
             isMove = true;
-            index = 0;
+            EventUI.SetActive(false);
+            index = 0; 
             return;
         }
         if (Input.GetKeyDown(KeyCode.Q))
