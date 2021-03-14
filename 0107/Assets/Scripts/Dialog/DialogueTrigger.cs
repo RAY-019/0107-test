@@ -7,9 +7,9 @@ public class DialogueTrigger : MonoBehaviour
     public GameObject Button, EventUI, StartDialog, trueDialog, falseDialog;
     public static bool isTalkButton;
     public static bool isUIOpen;
+    public static bool isTrueFinishEvent;
     public bool isEvent;
     public bool isFinishEvent;
-    public bool isTrueFinishEvent;
 
     private void Start()
     {
