@@ -2539,9 +2539,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1031129695}
-        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
-        m_MethodName: CheckPassWord
+      - m_Target: {fileID: 753863960}
+        m_TargetAssemblyTypeName: EnterKey, Assembly-CSharp
+        m_MethodName: CheckPass
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2551,9 +2551,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 753863960}
-        m_TargetAssemblyTypeName: EnterKey, Assembly-CSharp
-        m_MethodName: CheckPass
+      - m_Target: {fileID: 1031129695}
+        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
+        m_MethodName: CheckPassWord
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3926,7 +3926,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902358453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00028574467, y: 0.9970833, z: -10}
+  m_LocalPosition: {x: -0.00028383732, y: 0.99708617, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4759,6 +4759,9 @@ MonoBehaviour:
   StartDialog: {fileID: 2087837112}
   trueDialog: {fileID: 455972764}
   falseDialog: {fileID: 1545394545}
+  isEvent: 0
+  isFinishEvent: 0
+  isTrueFinishEvent: 0
 --- !u!212 &1031129696
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -7,8 +7,8 @@ public class DialogueTrigger : MonoBehaviour
     public GameObject Button, EventUI, StartDialog, trueDialog, falseDialog;
     public static bool isTalkButton;
     public static bool isUIOpen;
-    public static bool isEvent;
-    public static bool isFinishEvent;
+    public bool isEvent;
+    public bool isFinishEvent;
     public bool isTrueFinishEvent;
 
     private void Start()
@@ -41,29 +41,42 @@ public class DialogueTrigger : MonoBehaviour
         {
             isUIOpen = false;
         }
+        if (falseDialog.activeInHierarchy)
+        {
+            isEvent = true;
+        }
+        else
+        {
+            isEvent = false;
+            isFinishEvent = false;
+        }
+        if (falseDialog.activeInHierarchy)
+        {
+            isEvent = true;
+            isFinishEvent = true;
+        }
+        else
+        {
+            isEvent = false;
+            isFinishEvent = false;
+        }
 
     }
 
     void StartDialogue()
     {
-        if (isTalkButton && !isUIOpen && !isEvent)
+        if (isTalkButton && !isUIOpen && !isEvent && !isFinishEvent && !isTrueFinishEvent)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 StartDialog.SetActive(true);
                 EventUI.SetActive(true);
             }
-            /*if (isTrueFinishEvent)
-            {
-                StartDialog.SetActive(false);
-                EventUI.SetActive(false);
-            }*/
         }
     }
 
     public void CheckPassWord()
     {
-        isEvent = true;
         DialogueSystem.index = 0;
         if (EnterKey.isPasswordCorrect && isUIOpen)
         {
@@ -72,11 +85,6 @@ public class DialogueTrigger : MonoBehaviour
             falseDialog.SetActive(false);
             EventUI.SetActive(false);
             isTrueFinishEvent = true;
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                isEvent = false;
-                isFinishEvent = false;
-            }
         }
         if (!EnterKey.isPasswordCorrect && isUIOpen)
         {
@@ -84,12 +92,6 @@ public class DialogueTrigger : MonoBehaviour
             trueDialog.SetActive(false);
             falseDialog.SetActive(true);
             EventUI.SetActive(false);
-            isFinishEvent = true;
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                isEvent = false;
-                isFinishEvent = false;
-            }
         }
     }
 }
