@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public GameObject Button, EventUI, StartDialog, trueDialog, falseDialog;
+    public GameObject Button, EventUI, StartDialog;
+    public GameObject trueDialog = null;
+    public GameObject falseDialog = null;
     public static bool isTalkButton;
     public static bool isUIOpen;
     public static bool isTrueFinishEvent;
@@ -17,16 +19,25 @@ public class DialogueTrigger : MonoBehaviour
         Button.SetActive(false);
         EventUI.SetActive(false);
         StartDialog.SetActive(false);
-        trueDialog.SetActive(false);
-        falseDialog.SetActive(false);
+        if(trueDialog != null && falseDialog != null)
+        {
+            trueDialog.SetActive(false);
+            falseDialog.SetActive(false);
+        }
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D coll)
     {
-        isTalkButton = true;
+        if (coll.gameObject.tag == "Player")
+        {
+            isTalkButton = true;
+        }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D coll)
     {
-        isTalkButton = false;
+        if (coll.gameObject.tag == "Player")
+        {
+            isTalkButton = false;
+        }
     }
 
     void Update()
@@ -41,26 +52,19 @@ public class DialogueTrigger : MonoBehaviour
         {
             isUIOpen = false;
         }
-        if (falseDialog.activeInHierarchy)
+        if(falseDialog != null)
         {
-            isEvent = true;
+            if (falseDialog.activeInHierarchy)
+            {
+                isEvent = true;
+                isFinishEvent = true;
+            }
+            else
+            {
+                isEvent = false;
+                isFinishEvent = false;
+            }
         }
-        else
-        {
-            isEvent = false;
-            isFinishEvent = false;
-        }
-        if (falseDialog.activeInHierarchy)
-        {
-            isEvent = true;
-            isFinishEvent = true;
-        }
-        else
-        {
-            isEvent = false;
-            isFinishEvent = false;
-        }
-
     }
 
     void StartDialogue()
@@ -75,7 +79,7 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
 
-    public void CheckPassWord()
+    public void CheckPassWord()//密碼鎖的對話
     {
         DialogueSystem.index = 0;
         if (EnterKey.isPasswordCorrect && isUIOpen)
