@@ -7,6 +7,7 @@ public class DialogueTrigger : MonoBehaviour
     public GameObject Button, EventUI, StartDialog;
     public GameObject trueDialog = null;
     public GameObject falseDialog = null;
+    public Collider2D TalkColl;
     public static bool isTalkButton;
     public static bool isUIOpen;
     public static bool isTrueFinishEvent;
