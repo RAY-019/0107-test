@@ -36,7 +36,7 @@ public class PlayerChange : MonoBehaviour
         if (n_maz != null && fork != null && EnterKey.isPasswordCorrect)
         {
             fork.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.Q) && forkTrigger.getFork && DialogueTrigger.isTrueFinishEvent)
+            if (Input.GetKeyDown(KeyCode.Q) && forkTrigger.getFork && DialogueContent.isTrueFinishEvent)
             {
                 GameObject new_nf_maz =Instantiate(nf_maz, n_maz_pos.position, Quaternion.identity, Now_maz.transform);
                 Destroy(n_maz);

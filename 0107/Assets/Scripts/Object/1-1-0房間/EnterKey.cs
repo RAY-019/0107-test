@@ -14,7 +14,7 @@ public class EnterKey : MonoBehaviour
     {
         password = "1000";
         isPasswordCorrect = false;
-        DialogueTrigger.isUIOpen = true;
+        DialogueContent.isUIOpen = true;
     }
 
     /// <summary>

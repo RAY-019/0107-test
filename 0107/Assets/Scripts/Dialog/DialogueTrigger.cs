@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public GameObject Button, EventUI, StartDialog;
-    public GameObject trueDialog = null;
-    public GameObject falseDialog = null;
-    public Collider2D TalkColl;
+    public GameObject ObjectEvent;
     public static bool isTalkButton;
-    public static bool isUIOpen;
-    public static bool isTrueFinishEvent;
-    public bool isEvent;
-    public bool isFinishEvent;
-
+    public static bool isStartEvent;
+    public GameObject TalkColl;
     private void Start()
     {
-        isUIOpen = false;
-        Button.SetActive(false);
-        EventUI.SetActive(false);
-        StartDialog.SetActive(false);
-        if(trueDialog != null && falseDialog != null)
+        TalkColl.GetComponent<Collider2D>().enabled = false;
+    }
+    void Update()
+    {
+        if (TalkColl.GetComponent<Collider2D>().enabled == true)
         {
-            trueDialog.SetActive(false);
-            falseDialog.SetActive(false);
+            ObjectEvent.SetActive(true);
+        }
+        if (TalkColl.GetComponent<Collider2D>().enabled == false)
+        {
+            ObjectEvent.SetActive(false);
         }
     }
     private void OnTriggerEnter2D(Collider2D coll)
@@ -31,6 +28,8 @@ public class DialogueTrigger : MonoBehaviour
         if (coll.gameObject.tag == "Player")
         {
             isTalkButton = true;
+            TalkColl.GetComponent<Collider2D>().enabled = true;
+            //StartEvent.SetActive(true);
         }
     }
     private void OnTriggerExit2D(Collider2D coll)
@@ -38,65 +37,10 @@ public class DialogueTrigger : MonoBehaviour
         if (coll.gameObject.tag == "Player")
         {
             isTalkButton = false;
+            TalkColl.GetComponent<Collider2D>().enabled = false;
+            //StartEvent.SetActive(false);
         }
     }
 
-    void Update()
-    {
-        StartDialogue();
-
-        if (EventUI.activeInHierarchy)
-        {
-            isUIOpen = true;
-        }
-        else
-        {
-            isUIOpen = false;
-        }
-        if(falseDialog != null)
-        {
-            if (falseDialog.activeInHierarchy)
-            {
-                isEvent = true;
-                isFinishEvent = true;
-            }
-            else
-            {
-                isEvent = false;
-                isFinishEvent = false;
-            }
-        }
-    }
-
-    void StartDialogue()
-    {
-        if (isTalkButton && !isUIOpen && !isEvent && !isFinishEvent && !isTrueFinishEvent)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                StartDialog.SetActive(true);
-                EventUI.SetActive(true);
-            }
-        }
-    }
-
-    public void CheckPassWord()//密碼鎖的對話
-    {
-        DialogueSystem.index = 0;
-        if (EnterKey.isPasswordCorrect && isUIOpen)
-        {
-            StartDialog.SetActive(false);
-            trueDialog.SetActive(true);
-            falseDialog.SetActive(false);
-            EventUI.SetActive(false);
-            isTrueFinishEvent = true;
-        }
-        if (!EnterKey.isPasswordCorrect && isUIOpen)
-        {
-            StartDialog.SetActive(false);
-            trueDialog.SetActive(false);
-            falseDialog.SetActive(true);
-            EventUI.SetActive(false);
-        }
-    }
+   
 }

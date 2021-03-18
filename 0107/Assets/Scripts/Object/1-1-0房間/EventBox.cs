@@ -18,7 +18,7 @@ public class EventBox : MonoBehaviour
     }
     void Box()
     {
-        if (DialogueTrigger.isTrueFinishEvent && Fork != null)
+        if (DialogueContent.isTrueFinishEvent && Fork != null)
         {
             anim.SetTrigger("open");
             Fork.SetActive(true);
