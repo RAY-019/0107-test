@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public GameObject ObjectEvent;
+    public GameObject ObjectDialogue;
     public static bool isTalkButton;
     public static bool isStartEvent;
     public GameObject TalkColl;
@@ -16,11 +16,11 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (TalkColl.GetComponent<Collider2D>().enabled == true)
         {
-            ObjectEvent.SetActive(true);
+            ObjectDialogue.SetActive(true);
         }
         if (TalkColl.GetComponent<Collider2D>().enabled == false)
         {
-            ObjectEvent.SetActive(false);
+            ObjectDialogue.SetActive(false);
         }
     }
     private void OnTriggerEnter2D(Collider2D coll)
@@ -29,7 +29,6 @@ public class DialogueTrigger : MonoBehaviour
         {
             isTalkButton = true;
             TalkColl.GetComponent<Collider2D>().enabled = true;
-            //StartEvent.SetActive(true);
         }
     }
     private void OnTriggerExit2D(Collider2D coll)
@@ -38,7 +37,6 @@ public class DialogueTrigger : MonoBehaviour
         {
             isTalkButton = false;
             TalkColl.GetComponent<Collider2D>().enabled = false;
-            //StartEvent.SetActive(false);
         }
     }
 

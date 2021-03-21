@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DialogueContent : MonoBehaviour
 {
-    public GameObject EventUI, StartDialog;
+    public GameObject StartDialog;
+    public GameObject EventUI = null;
     public GameObject trueDialog = null;
     public GameObject falseDialog = null;
     public static bool isUIOpen;
@@ -15,8 +16,8 @@ public class DialogueContent : MonoBehaviour
     private void Start()
     {
         isUIOpen = false;
-        EventUI.SetActive(false);
         StartDialog.SetActive(false);
+        EventUI.SetActive(false);
         if (trueDialog != null && falseDialog != null)
         {
             trueDialog.SetActive(false);

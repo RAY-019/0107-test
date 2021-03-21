@@ -12,7 +12,7 @@ public class EnterKey : MonoBehaviour
 
     void Start()
     {
-        password = "1000";
+        password = "2051";
         isPasswordCorrect = false;
         DialogueContent.isUIOpen = true;
     }

@@ -8,8 +8,9 @@ public class DialogueSystem : MonoBehaviour
 {
     [Header("UI組件")]
     public TMP_Text TextLabel;
-    public Image FaceImage;
-    public GameObject EventUI;
+    public Image FaceImage = null;
+    public GameObject EventUI = null;
+    public GameObject DialogueLabel;
 
     [Header("文本文件")]
     public TextAsset TextFile;
@@ -32,7 +33,10 @@ public class DialogueSystem : MonoBehaviour
         GetTextFormFile(TextFile);
         index = 0;
     }
-
+    private void Start()
+    {
+        DialogueLabel.SetActive(false);
+    }
     private void OnEnable()
     { 
         StartCoroutine(SetTextUI());
@@ -40,12 +44,14 @@ public class DialogueSystem : MonoBehaviour
 
     void Update()
     {
+        DialogueLabel.SetActive(true);
         isMove = false;
         if (Input.GetKeyDown(KeyCode.Q) && index == textList.Count)
         {
             gameObject.SetActive(false);
             isMove = true;
             EventUI.SetActive(false);
+            DialogueLabel.SetActive(false);
             index = 0; 
             return;
         }
