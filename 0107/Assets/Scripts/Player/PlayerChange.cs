@@ -44,6 +44,7 @@ public class PlayerChange : MonoBehaviour
                 nf_maz_CM.SetActive(true);
                 new_nf_maz.name = nf_maz.name.Replace("(Clone)", "");
                 Destroy(fork);
+                DialogueContent.isGetEventObject = true;
             }
         }
     }

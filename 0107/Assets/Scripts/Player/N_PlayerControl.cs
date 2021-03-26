@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayControl : MonoBehaviour
+public class N_PlayerControl : MonoBehaviour
 {
     private Rigidbody2D rb;//宣告剛體rb
     private Animator anim;//宣告動畫anim
@@ -18,7 +18,7 @@ public class PlayControl : MonoBehaviour
     private bool isGround;
     private bool isOneWayPlatForm;
 
-    public GameObject TalkButton,WalkButton;//互動圖標
+    public GameObject TalkButton;
 
     void Start()
     {
@@ -43,10 +43,7 @@ public class PlayControl : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Attack();
-        }
+        
 
         if (DialogueSystem.isMove == false)
         {
@@ -60,14 +57,7 @@ public class PlayControl : MonoBehaviour
         {
             TalkButton.SetActive(false);
         }
-        if (GoToNextScene.isWalkButton)
-        {
-            WalkButton.SetActive(true);
-        }
-        else
-        {
-            WalkButton.SetActive(false);
-        }
+
     }
 
     void Movement()
@@ -98,10 +88,7 @@ public class PlayControl : MonoBehaviour
         }
     }
 
-    void Attack()
-    {
-        anim.SetTrigger("Attack");
-    }
+    
 
     void SwitchAnim()
     {
@@ -145,7 +132,7 @@ public class PlayControl : MonoBehaviour
 
     void RestorePlayerLayer()
     {
-        if(!isGround && gameObject.layer != LayerMask.NameToLayer("Player"))
+        if (!isGround && gameObject.layer != LayerMask.NameToLayer("Player"))
         {
             gameObject.layer = LayerMask.NameToLayer("Player");
         }

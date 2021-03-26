@@ -5,29 +5,35 @@ using UnityEngine;
 public class DialogueContent : MonoBehaviour
 {
     public GameObject StartDialog;
-    public GameObject EventUI = null;
-    public GameObject trueDialog = null;
-    public GameObject falseDialog = null;
-    public static bool isUIOpen;
-    public static bool isTrueFinishEvent;
-    public bool isEvent;
-    public bool isFinishEvent;
+    public GameObject EventUI, trueDialog, falseDialog, FinishDialog = null;
 
+    public bool isEvent, isFinishEvent;
+    public static bool isUIOpen, isTrueFinishEvent, isGetEventObject;
     private void Start()
     {
         isUIOpen = false;
         StartDialog.SetActive(false);
-        EventUI.SetActive(false);
-        if (trueDialog != null && falseDialog != null)
+        if (EventUI != null)
+        {
+            EventUI.SetActive(false);
+        }
+        if (trueDialog != null)
         {
             trueDialog.SetActive(false);
-            falseDialog.SetActive(false);
+        }
+        if (falseDialog != null)
+        {
+            trueDialog.SetActive(false);
+        }
+        if (FinishDialog != null)
+        {
+            FinishDialog.SetActive(false);
         }
     }
     void Update()
     {
         StartDialogue();
-
+        DialogueEvent();
         if (EventUI.activeInHierarchy)
         {
             isUIOpen = true;
@@ -59,6 +65,21 @@ public class DialogueContent : MonoBehaviour
             {
                 StartDialog.SetActive(true);
                 EventUI.SetActive(true);
+            }
+        }
+    }
+
+    void DialogueEvent()
+    {
+        if (DialogueTrigger.isTalkButton && isGetEventObject && !isUIOpen)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                trueDialog.SetActive(true);
+                if (isTrueFinishEvent)
+                {
+                    FinishDialog.SetActive(true);
+                }
             }
         }
     }
