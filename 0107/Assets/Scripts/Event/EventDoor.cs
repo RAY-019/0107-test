@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EventDoor : MonoBehaviour
 {
-    public GameObject GoToNextColl;
+    public GameObject GoToNextColl,TalkColl,TriggerColl;
     public Animator door_anim;
     public bool isDoorMove;
     public static bool isDoorOpen;
@@ -36,6 +36,8 @@ public class EventDoor : MonoBehaviour
         door_anim.SetTrigger("Open");
         isDoorOpen = true;
         GoToNextColl.GetComponent<Collider2D>().enabled = true;
+        TalkColl.GetComponent<Collider2D>().enabled = false;
+        TriggerColl.GetComponent<Collider2D>().enabled = false;
     }
     
 }

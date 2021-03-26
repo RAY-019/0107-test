@@ -10,12 +10,15 @@ public class GoToNextScene : MonoBehaviour
     {
         isWalkButton = false;
     }
+    private void Update()
+    {
+        GoToNext();
+    }
     private void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.tag == ("Player"))
         {
             isWalkButton = true;
-            GoToNext();
         }
     }
     private void OnTriggerExit2D(Collider2D coll)
@@ -28,9 +31,10 @@ public class GoToNextScene : MonoBehaviour
    
     void GoToNext()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && EventDoor.isDoorOpen && isWalkButton)//1-1-0房間門打開
+        if (Input.GetKeyDown(KeyCode.Q) && isWalkButton)//1-1-0房間門打開
         {
             SceneManager.LoadScene("1-1-1");
+            Debug.Log("go");
         }
     }
 }

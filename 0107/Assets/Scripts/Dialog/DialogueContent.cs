@@ -71,15 +71,11 @@ public class DialogueContent : MonoBehaviour
 
     void DialogueEvent()
     {
-        if (DialogueTrigger.isTalkButton && isGetEventObject && !isUIOpen)
+        if (DialogueTrigger.isTalkButton && isGetEventObject && !isUIOpen && isTrueFinishEvent)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                trueDialog.SetActive(true);
-                if (isTrueFinishEvent)
-                {
-                    FinishDialog.SetActive(true);
-                }
+                FinishDialog.SetActive(true);
             }
         }
     }
